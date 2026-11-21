@@ -18,6 +18,8 @@ public class MainActivity extends Activity {
     private WebView web;
     private PermissionRequest pendingReq;
 
+    private static final String GAME_URL = "https://mohamed-star123123.github.io/Top100/";
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +31,12 @@ public class MainActivity extends Activity {
         s.setJavaScriptEnabled(true);
         s.setDomStorageEnabled(true);
         s.setMediaPlaybackRequiresUserGesture(false);
-        s.setAllowFileAccess(true);
 
         web.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 String u = request.getUrl().toString();
-                if (u.startsWith("file:") || u.startsWith("https://mohamed-star123123.github.io/")) return false;
+                if (u.startsWith(GAME_URL)) return false;
                 try {
                     Intent i = u.startsWith("intent:")
                             ? Intent.parseUri(u, Intent.URI_INTENT_SCHEME)
@@ -63,7 +64,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        web.loadUrl("file:///android_asset/index.html");
+        web.loadUrl(GAME_URL);
     }
 
     @Override
